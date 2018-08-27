@@ -1,14 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="gbk" />
+    <meta charset="urf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ԭ��Tab���</title>
+    <title>原生Tab组件</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
+    <style>
+        /*reset*/
+        div,h1,h2,h3,h4,h5,h6,ul,ol,li,p,button,img,input,from,table,tr{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .tab-title{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .tab-title li{
+            border-bottom: 5px solid #e43205;
+        }
+        .tab-title li:hover{
+            cursor: pointer;
+            border-bottom: 5px solid #474f50;
+        }
+        .tab-title{
+            width: 500px;
+            margin: auto;
+        }
+        .tab-content{
+            margin: auto;
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+        .section1{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: #474f50             
+        }
+        .section2{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            background: #87d8e2
+        }
+        .section3{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            background: #1a393d
+        }
+        .section4{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            background: #ad8d20
+        }
+
+
+    </style>
 </head>
 <body>
     
+    <ul class="tab-title">
+        <li>选项一</li>
+        <li>选项二</li>
+        <li>选项三</li>
+        <li>选项四</li>
+    </ul>
+    <div class="tab-content">
+        <div class="section1"></div>
+        <div class="section2"></div>
+        <div class="section3"></div>
+        <div class="section4"></div>
+    </div>
+    
+    <script>
+        var $=function(name){
+            return document.getElementById(name)
+        }
+        var $$=function(name){
+            return document.getElementsByClassName(name)
+        }
+        var $$$=function(name){
+            return document.getElementsByTagName(name)
+        }
+        var arr=[];
+        arr=Array.prototype.slice.call($$("tab-content")[0].children,0);
+        console.log(arr)
+        for( var i=0;i<4;i++){
+        (function(i){
+        $$("tab-title")[0].children[i].onclick=function(){
+            
+            var index=arr.indexOf($$("tab-content")[0].children[i]);
+            for(var x=1;x<4;x++){
+                arr[x].style.display="none";
+                }
+            $$("tab-content")[0].children[i].style.display="block";
+            }
+            
+         })(i)
+        }
+    </script>
 </body>
 </html>
