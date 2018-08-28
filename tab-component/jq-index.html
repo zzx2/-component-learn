@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="urf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jQueryTab组件</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+        /*reset*/
+        div,h1,h2,h3,h4,h5,h6,ul,ol,li,p,button,img,input,from,table,tr{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .tab-title{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .tab-title li{
+            border-bottom: 5px solid #e43205;
+        }
+        .tab-title li:hover{
+            cursor: pointer;
+            border-bottom: 5px solid #474f50;
+        }
+        .tab-title{
+            width: 500px;
+            margin: auto;
+        }
+        .tab-content{
+            margin: auto;
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+        .section1{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: #474f50             
+        }
+        .section2{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            background: #87d8e2
+        }
+        .section3{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            background: #1a393d
+        }
+        .section4{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            background: #ad8d20
+        }
+
+
+    </style>
+</head>
+<body>
+    
+    <ul class="tab-title">
+        <li>选项一</li>
+        <li>选项二</li>
+        <li>选项三</li>
+        <li>选项四</li>
+    </ul>
+    <div class="tab-content">
+        <div class="section1"></div>
+        <div class="section2"></div>
+        <div class="section3"></div>
+        <div class="section4"></div>
+    </div>
+    <script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
+    <script>
+        for( var i=0;i<4;i++){
+        (function(i){
+        $(".tab-title")[0].children[i].onclick=function(){
+            $(".tab-content").children().eq(i).css("display","block");
+            $(".tab-content").children().eq(i).siblings().css("display","none");
+            }
+         })(i)
+        }
+    </script>
+</body>
+</html>
