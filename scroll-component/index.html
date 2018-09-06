@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>一次一屏滑动</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../reset.css">
+    <style>
+        [class*="bl"]{
+            width: 100%;
+            height: 900px;
+        }
+        .bl1{
+           background: rgb(109, 84, 84)
+        }
+        .bl2{
+            background: rgb(47, 109, 145)
+        }
+        .bl3{
+            background: rgb(177, 206, 214)
+        }
+        .bl4{
+            background: #8f7bbe
+        }
+        .bl5{
+            background: rgb(139, 136, 101)
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bl1"></div>
+    <div class="bl2"></div>
+    <div class="bl3"></div>
+    <div class="bl4"></div>
+    <div class="bl5"></div>
+    <div class="bl6"></div>
+<script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
+<script>
+    var scrollRuning = true;
+    (function(){
+    var p = 0, t = 0;
+    $(window).scroll(function (e) {
+            if(scrollRuning) {
+                scrollRuning = false;
+                p = $(this).scrollTop();
+                var heightNum = Math.floor(p / document.body.clientHeight);
+                if (t <= p) {//向下滚
+                    $('body').animate({scrollTop: (heightNum + 1) * document.body.clientHeight + "px"}, 500,function(){
+                        setTimeout(function () {
+                            scrollRuning = true;
+                            t = $(this).scrollTop();
+                        },200)
+                        return false;
+                    });
+                } else {//向上滚
+                    $('body').animate({scrollTop: heightNum * document.body.clientHeight + "px"}, 500,function(){
+                        setTimeout(function () {
+                            scrollRuning = true;
+                            t = $(this).scrollTop();
+                        },200)
+                    })
+                }
+            }
+    });
+}
+)();
+</script>
+</body>
+</html>

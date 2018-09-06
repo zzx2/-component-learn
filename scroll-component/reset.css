@@ -1,0 +1,47 @@
+/*reset*/
+html,body,div,p,ul,li,dl,dt,dd,em,i,span,a,img,input,h1,h2,h3,h4,h5 {
+    margin: 0;
+    padding: 0;
+}
+h1,h2,h3{
+    text-indent: -9999px
+}
+a,img,input {
+    border: none;
+}
+
+body {
+    font-family:'\5FAE\8F6F\96C5\9ED1';
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a {
+    text-decoration: none;
+}
+
+ul,li {
+    list-style: none;
+}
+
+a,img {
+    -webkit-touch-callout: none;
+    border: 0;
+}
+
+html {
+    font-size: calc(100vw / 750 * 100);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+em,b,i {
+    font-style: normal;
+}
+button{
+    border: 0;
+    text-indent: -9999px;
+}
+a{
+    color: #ffffff;
+    text-indent: -9999px;
+}
