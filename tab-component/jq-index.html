@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>jQueryTab组件</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../reset.css" />
     <style>
         /*reset*/
         div,h1,h2,h3,h4,h5,h6,ul,ol,li,p,button,img,input,from,table,tr{
@@ -85,6 +84,7 @@
     </div>
     <script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
     <script>
+        console.log($(".tab-title"))
         for( var i=0;i<4;i++){
         (function(i){
         $(".tab-title")[0].children[i].onclick=function(){
