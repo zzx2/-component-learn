@@ -9,7 +9,6 @@
     <style>
         [class*="bl"]{
             width: 100%;
-            height: 900px;
         }
         .bl1{
            background: rgb(109, 84, 84)
@@ -26,35 +25,51 @@
         .bl5{
             background: rgb(139, 136, 101)
         }
+        #scroll{
+            overflow: hidden;
+        }
+        html { overflow-x: hidden; overflow-y: hidden; }
 
     </style>
 </head>
 <body>
+  <div id="scroll">
     <div class="bl1"></div>
     <div class="bl2"></div>
     <div class="bl3"></div>
     <div class="bl4"></div>
     <div class="bl5"></div>
     <div class="bl6"></div>
+ </div>
 <script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
 <script>
-    document.body.addEventListener("mousewheel",function(event){
-        var hmove=window.innerHeight;
-        var scroll=document.documentElement.scrollTop;
-        var blc=document.body.children
-        for(var i=0;i<blc.length;i++){
+    var hmove=window.innerHeight;
+    var blc=document.getElementById("scroll").children
+    for(var i=0;i<blc.length;i++){
             blc[i].style.height=hmove+"px"
         }
-        
-        console.log("判断前"+scroll)
-        var delta=event.wheelDelta/120;
-        if(delta<0){
-            console.log(delta)
-            console.log("判断后")
-            document.body.style.WebkitTransform="translate(0,-934px,0)"
-        }else if(delta>0){
-            console.log(delta)
-        }
+        var num=0
+        var iTime;
+        document.body.addEventListener("mousewheel",function(event){
+
+            var delta=event.wheelDelta/120;
+            clearTimeout(iTime)
+            iTime=setTimeout(function(){
+            if(delta<0){
+                if(num<=4&&num>=0){
+                    num=num+1;
+                }
+                document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+                document.getElementById("scroll").style.transition="transform .5s";
+            }else if(delta>0){
+                    if(num<=5&&num>0){
+                        num=num-1;
+                    }
+                    document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+                    document.getElementById("scroll").style.transition="transform .5s";
+            }
+        },100)
+                
     })
     
 </script>
