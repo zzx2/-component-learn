@@ -38,34 +38,25 @@
     <div class="bl6"></div>
 <script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
 <script>
-    var scrollRuning = true;
-    (function(){
-    var p = 0, t = 0;
-    $(window).scroll(function (e) {
-            if(scrollRuning) {
-                scrollRuning = false;
-                p = $(this).scrollTop();
-                var heightNum = Math.floor(p / document.body.clientHeight);
-                if (t <= p) {//向下滚
-                    $('body').animate({scrollTop: (heightNum + 1) * document.body.clientHeight + "px"}, 500,function(){
-                        setTimeout(function () {
-                            scrollRuning = true;
-                            t = $(this).scrollTop();
-                        },200)
-                        return false;
-                    });
-                } else {//向上滚
-                    $('body').animate({scrollTop: heightNum * document.body.clientHeight + "px"}, 500,function(){
-                        setTimeout(function () {
-                            scrollRuning = true;
-                            t = $(this).scrollTop();
-                        },200)
-                    })
-                }
-            }
-    });
-}
-)();
+    document.body.addEventListener("mousewheel",function(event){
+        var hmove=window.innerHeight;
+        var scroll=document.documentElement.scrollTop;
+        var blc=document.body.children
+        for(var i=0;i<blc.length;i++){
+            blc[i].style.height=hmove+"px"
+        }
+        
+        console.log("判断前"+scroll)
+        var delta=event.wheelDelta/120;
+        if(delta<0){
+            console.log(delta)
+            console.log("判断后")
+            document.body.style.WebkitTransform="translate(0,-934px,0)"
+        }else if(delta>0){
+            console.log(delta)
+        }
+    })
+    
 </script>
 </body>
 </html>
