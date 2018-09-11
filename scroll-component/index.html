@@ -29,6 +29,30 @@
             overflow: hidden;
         }
         html { overflow-x: hidden; overflow-y: hidden; }
+        .aside{
+            position: fixed;
+            top:0 ;
+            height: 100px;
+            width: 100%;
+            background: #989e92;
+            font-size:0;
+            color: #ffffff; 
+            z-index: 9999;
+            border: #666666 1px solid;
+            overflow:hidden;
+        }
+        .aside section{
+            display:inline-block;
+            width: 16.56%;
+            min-width: 100px;
+            text-align: center;
+            border: #666666 1px solid;
+            line-height: 100px;
+            font-size:20px;
+        }
+        .aside section:hover{
+            background: #cfc7c7;
+        }
 
     </style>
 </head>
@@ -40,6 +64,14 @@
     <div class="bl4"></div>
     <div class="bl5"></div>
     <div class="bl6"></div>
+ </div>
+ <div class="aside">
+    <section>第一部分</section>
+    <section>第二部分</section>
+    <section>第三部分</section>
+    <section>第四部分</section>
+    <section>第五部分</section>
+    <section>第六部分</section>
  </div>
 <script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
 <script>
