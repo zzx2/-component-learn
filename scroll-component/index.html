@@ -33,6 +33,7 @@
             position: fixed;
             top:0 ;
             height: 100px;
+            min-width: 1200px;
             width: 100%;
             background: #989e92;
             font-size:0;
@@ -42,16 +43,39 @@
             overflow:hidden;
         }
         .aside section{
+            position: fixed;
             display:inline-block;
-            width: 16.56%;
             min-width: 100px;
+            width: 16.6%;
             text-align: center;
             border: #666666 1px solid;
             line-height: 100px;
             font-size:20px;
         }
+        .aside section:nth-child(1){
+              left: 0;
+        }
+        .aside section:nth-child(2){
+              left: 16.66%;
+        }
+        .aside section:nth-child(3){
+              left: 33.32%;
+        }
+        .aside section:nth-child(4){
+              left: 49.98%;
+        }
+        .aside section:nth-child(5){
+              left: 66.64%;
+        }
+        .aside section:nth-child(6){
+              left: 83.3%;
+        }
         .aside section:hover{
             background: #cfc7c7;
+            cursor: pointer;
+        }
+        .active{
+            background: #ffffff;
         }
 
     </style>
@@ -73,7 +97,7 @@
     <section>第五部分</section>
     <section>第六部分</section>
  </div>
-<script src="//ossweb-img.qq.com/images/js/jquery/jquery-1.11.3.min.js"></script>
+ <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
     var hmove=window.innerHeight;
     var blc=document.getElementById("scroll").children
@@ -103,6 +127,27 @@
         },100)
                 
     })
+      document.getElementsByClassName("aside")[0].addEventListener("click",function(event){
+          num=getNum("aside",event.target) 
+          document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+          document.getElementById("scroll").style.transition="transform .5s";
+      })
+    // $(".aside").click(function(){
+    //     console.log(this)
+    //     document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+    //     document.getElementById("scroll").style.transition="transform .5s";
+        
+    // })
+    
+     function getNum(par,child){
+       var Arr= document.getElementsByClassName(par)[0].children;
+       for(var i=0;i<Arr.length;i++){
+           if(Arr[i]===child){
+               return i
+           }
+       }
+     }
+    
     
 </script>
 </body>
