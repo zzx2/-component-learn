@@ -75,7 +75,7 @@
             cursor: pointer;
         }
         .active{
-            background: #ffffff;
+            background: #bbbaaa;
         }
 
     </style>
@@ -131,6 +131,14 @@
           num=getNum("aside",event.target) 
           document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
           document.getElementById("scroll").style.transition="transform .5s";
+          for(var b=0;b<getSlibing(event.target).length;b++){
+            getSlibing(event.target)[b].classList.remove("active")
+          }
+          if(event.target.length<=1){
+          event.target.classList.add("active")
+          }
+          console.log(event.target)
+          getSlibing(event.target)
       })
     // $(".aside").click(function(){
     //     console.log(this)
@@ -146,6 +154,29 @@
                return i
            }
        }
+     }
+     function getSlibing(name){
+          var sArr=[];
+          var self=name
+          var pre= self.previousSibling;
+          var next=self.nextSibling;
+          for(var i=0;i<self.parentNode.childNodes.length;i++)
+          {
+
+            if(pre){
+                if(pre.nodeName!=="#text")
+                   {sArr.push(pre);}
+                pre=pre.previousSibling;
+            }
+           
+            if(!pre&&next){
+                if(next.nodeName!=="#text")
+                   {sArr.push(next);}
+                next=next.nextSibling;
+            }
+
+          }
+          return sArr;
      }
     
     
