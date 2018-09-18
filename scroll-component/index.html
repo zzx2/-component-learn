@@ -99,7 +99,9 @@
  </div>
  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
+    function clscroll(){
     var hmove=window.innerHeight;
+    var scr=document.getElementById("scroll");
     var blc=document.getElementById("scroll").children
     for(var i=0;i<blc.length;i++){
             blc[i].style.height=hmove+"px"
@@ -115,37 +117,37 @@
                 if(num<=4&&num>=0){
                     num=num+1;
                 }
-                document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
-                document.getElementById("scroll").style.transition="transform .5s";
+                scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+                scr.style.transition="transform .5s";
             }else if(delta>0){
                     if(num<=5&&num>0){
                         num=num-1;
                     }
-                    document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
-                    document.getElementById("scroll").style.transition="transform .5s";
+                    scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+                    scr.style.transition="transform .5s";
             }
         },100)
                 
     })
       document.getElementsByClassName("aside")[0].addEventListener("click",function(event){
           num=getNum("aside",event.target) 
-          document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
-          document.getElementById("scroll").style.transition="transform .5s";
-          for(var b=0;b<getSlibing(event.target).length;b++){
+          scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+          scr.style.transition="transform .5s";
+          for(var b=0,i=getSlibing(event.target).length;b<i;b++){
             getSlibing(event.target)[b].classList.remove("active")
           }
           if(event.target.length<=1){
           event.target.classList.add("active")
           }
-          console.log(event.target)
           getSlibing(event.target)
       })
     // $(".aside").click(function(){
     //     console.log(this)
-    //     document.getElementById("scroll").style.WebkitTransform="translate(0,-"+num*hmove+"px)";
-    //     document.getElementById("scroll").style.transition="transform .5s";
+    //     scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+    //     scr.style.transition="transform .5s";
         
     // })
+    }
     
      function getNum(par,child){
        var Arr= document.getElementsByClassName(par)[0].children;
@@ -160,7 +162,7 @@
           var self=name
           var pre= self.previousSibling;
           var next=self.nextSibling;
-          for(var i=0;i<self.parentNode.childNodes.length;i++)
+          for(var i=0,slen=self.parentNode.childNodes.length;i<slen;i++)
           {
 
             if(pre){
@@ -178,6 +180,7 @@
           }
           return sArr;
      }
+     clscroll();
     
     
 </script>
