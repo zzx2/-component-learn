@@ -100,14 +100,15 @@
  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
     function clscroll(){
-    var hmove=window.innerHeight;
-    var scr=document.getElementById("scroll");
-    var blc=document.getElementById("scroll").children
+    var hmove=window.innerHeight,
+        scr=document.getElementById("scroll"),
+        blc=document.getElementById("scroll").children,
+        num=0
+        iTime;
     for(var i=0;i<blc.length;i++){
             blc[i].style.height=hmove+"px"
         }
-        var num=0
-        var iTime;
+       
         document.body.addEventListener("mousewheel",function(event){
 
             var delta=event.wheelDelta/120;
@@ -158,10 +159,10 @@
        }
      }
      function getSlibing(name){
-          var sArr=[];
-          var self=name
-          var pre= self.previousSibling;
-          var next=self.nextSibling;
+          var sArr=[],
+              self=name,
+              pre= self.previousSibling,
+              next=self.nextSibling;
           for(var i=0,slen=self.parentNode.childNodes.length;i<slen;i++)
           {
 
