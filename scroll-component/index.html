@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../reset.css">
     <style>
+        
         [class*="bl"]{
             width: 100%;
         }
@@ -77,6 +78,20 @@
         .active{
             background: #bbbaaa;
         }
+        @media screen and (max-width:480px)
+        {
+            html{
+                font-size: calc(100vw / 750 * 100);
+            }
+            .aside {
+                height: 1rem;
+            }
+            .aside section{
+                min-width:.1rem;
+                line-height: 1rem;
+                font-size:.2rem;  
+            }
+        }
 
     </style>
 </head>
@@ -103,10 +118,14 @@
     var hmove=window.innerHeight,
         scr=document.getElementById("scroll"),
         blc=document.getElementById("scroll").children,
-        num=0
+        asc=document.getElementsByClassName("aside")[0].children,
+        num=0,
         iTime;
-    for(var i=0;i<blc.length;i++){
+        for(var i=0;i<blc.length;i++){
             blc[i].style.height=hmove+"px"
+        }
+        if(num==0){
+            asc[0].classList.add("active")
         }
        
         document.body.addEventListener("mousewheel",function(event){
@@ -120,14 +139,24 @@
                 }
                 scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
                 scr.style.transition="transform .5s";
+                asc[num].classList.add("active")
+                for(var b=0,i=getSlibing(asc[num]).length;b<i;b++){
+                    getSlibing(asc[num])[b].classList.remove("active")
+                }
             }else if(delta>0){
                     if(num<=5&&num>0){
                         num=num-1;
                     }
                     scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
                     scr.style.transition="transform .5s";
+                    asc[num].classList.add("active")
+                    for(var b=0,i=getSlibing(asc[num]).length;b<i;b++){
+                    getSlibing(asc[num])[b].classList.remove("active")
+                }
             }
         },100)
+       
+            
                 
     })
       document.getElementsByClassName("aside")[0].addEventListener("click",function(event){
@@ -137,9 +166,11 @@
           for(var b=0,i=getSlibing(event.target).length;b<i;b++){
             getSlibing(event.target)[b].classList.remove("active")
           }
-          if(event.target.length<=1){
-          event.target.classList.add("active")
+         
+          if(event.target.length!==6){
+            event.target.classList.add("active")
           }
+          document.getElementsByClassName("aside")[0].classList.remove("active")
           getSlibing(event.target)
       })
     // $(".aside").click(function(){
@@ -148,6 +179,13 @@
     //     scr.style.transition="transform .5s";
         
     // })
+        var set= setInterval(function(){
+        if(window.innerHeight!==hmove)
+        {
+            location.reload();
+            clearInterval(set)
+        }
+        },100)
     }
     
      function getNum(par,child){
@@ -181,7 +219,8 @@
           }
           return sArr;
      }
-     clscroll();
+    window.onload=clscroll()
+    
     
     
 </script>
