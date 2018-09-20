@@ -3,12 +3,202 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>����</title>
+    <title>扇子</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
+    <style>
+        .fans{
+            min-width: 700px;
+            width: 700px;
+            position: relative;
+            height: 200px;
+            margin: 300px auto;
+            overflow: hidden;
+        }
+        .fans section{
+           width: 300px;
+           height:200px;
+           float: left;
+           transition: left .5s
+        }
+        .fans section .title{
+            float: left;
+        }
+        .clearfix::after{
+            display: block;
+            content: "";
+            clear: both;
+            overflow: hidden;
+            zoom: 1;
+        }
+        .first{
+            position: absolute;
+            top: 0;
+            left: 220px;
+        }
+        .second{
+            position: absolute;
+            top: 0;
+            left: 300px;
+
+        }
+        .third{
+            position: absolute;
+            top: 0;
+            left: 380px;
+        }
+        .fourth{
+            position: absolute;
+            top: 0;
+            left: 460px;
+        }
+        .fifth{
+            position: absolute;
+            top: 0;
+            left: 540px;
+        }
+        .sixth{
+            position: absolute;
+            top: 0;
+            left: 620px;
+        }
+        .title{
+            width: 80px;
+            height: 200px;
+            cursor: pointer;
+        }
+        .first .title{
+            
+            background: #a9d1e7
+
+        }
+        .second .title{
+            
+            background: #f1ebd1
+
+        }
+        .third .title{
+            
+            background: #8e9b8c
+
+        }
+        .fourth .title{
+            
+            background: #ceacac
+
+        }
+        .fifth .title{
+            
+            background: #a5b165
+
+        }
+        .sixth .title{
+            
+            background: #e0957e
+
+        }
+        .dis-content{
+        width: 220px;
+        height: 100%;
+        }
+        
+    </style>
 </head>
 <body>
-    
+    <div class="fans clearfix">
+        <div class="dis-content">开始显示内容</div>
+        <section class="first">
+            <div class="title chearfix">first</div>
+            <div class="content">内容1</div>
+        </section>
+        <section class="second">
+            <div class="title chearfix">second</div>
+            <div class="content">内容2</div>
+        </section>
+        <section class="third">
+            <div class="title chearfix">third</div>
+            <div class="content">内容3</div>
+        </section>
+        <section class="fourth">
+            <div class="title chearfix">fourth</div>
+            <div class="content">内容4</div>
+        </section>
+        <section class="fifth">
+            <div class="title chearfix">fifth</div>
+            <div class="content">内容5</div>
+        </section>
+        <section class="sixth">
+            <div class="title chearfix">sixth</div>
+            <div class="content">内容6</div>
+        </section>
+    </div>
+    <script>
+        var $=function(name){
+            return document.getElementsByClassName(name)[0]
+        }
+        var $$=function(name){
+            return document.getElementById(name)
+        }
+        function move(){
+           var fc= $("fans").children,
+               len=fc.length-1
+           for(var i=1;i<=len;i++){
+           fc[i].children[0].addEventListener("click",function(){
+               
+                var par=this.parentNode
+                if(par.id=="on")
+                {
+                   for(var i=0,len=getpre(getpre(par)[i]).length;i<len;i++)
+                   {
+                    getpre(par)[i].style.left=parseInt(window.getComputedStyle(getpre(par)[i]).left)+220+"px"
+                    getpre(par)[i].setAttribute("id","")
+                   }
+                }
+                else
+                {
+                for(var i=0,len=getpre(par).length;i<len;i++)
+                {
+                 if(getpre(par)[i].id!="on")
+                 {
+                    getpre(par)[i].setAttribute("id","on") 
+                    console.log( parseInt(window.getComputedStyle(getpre(par)[i]).left))
+                    getpre(par)[i].style.left=parseInt(window.getComputedStyle(getpre(par)[i]).left)-220+"px"
+                 }
+                }
+                }
+               
+            })
+            }
+        }
+        function getpre(name){
+            var arr=[],
+            pre=name.previousSibling;
+            arr.push(name)
+            for(var i=0,len=name.parentNode.children.length;i<len;i++){
+                if(pre){
+                    if(pre.nodeName!=="#text")
+                    {arr.push(pre);}
+                    pre=pre.previousSibling;
+                }
+            }
+            return arr
+        }
+        function getnext(name){
+            var arr=[],
+            next=name.nextSibling;
+            arr.push(name)
+            for(var i=0,len=name.parentNode.children.length;i<len;i++){
+                if(next){
+                    if(next.nodeName!=="#text")
+                    {arr.push(next);}
+                    next=next.previousSibling;
+                }
+            }
+            return arr
+        }
+        move()
+
+    </script>
 </body>
 </html>
