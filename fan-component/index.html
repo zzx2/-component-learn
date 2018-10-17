@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>扇子</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
     <style>
         .fans{
             min-width: 700px;
@@ -108,30 +108,33 @@
 <body>
     <div class="fans clearfix">
         <div class="dis-content">开始显示内容</div>
-        <section class="first">
+        <div class="content">
+            <section class="first">
             <div class="title chearfix">first</div>
             <div class="content">内容1</div>
-        </section>
-        <section class="second">
-            <div class="title chearfix">second</div>
-            <div class="content">内容2</div>
-        </section>
-        <section class="third">
-            <div class="title chearfix">third</div>
-            <div class="content">内容3</div>
-        </section>
-        <section class="fourth">
-            <div class="title chearfix">fourth</div>
-            <div class="content">内容4</div>
-        </section>
-        <section class="fifth">
-            <div class="title chearfix">fifth</div>
-            <div class="content">内容5</div>
-        </section>
-        <section class="sixth">
-            <div class="title chearfix">sixth</div>
-            <div class="content">内容6</div>
-        </section>
+            </section>
+            <section class="second">
+                <div class="title chearfix">second</div>
+                <div class="content">内容2</div>
+            </section>
+            <section class="third">
+                <div class="title chearfix">third</div>
+                <div class="content">内容3</div>
+            </section>
+            <section class="fourth">
+                <div class="title chearfix">fourth</div>
+                <div class="content">内容4</div>
+            </section>
+            <section class="fifth">
+                <div class="title chearfix">fifth</div>
+                <div class="content">内容5</div>
+            </section>
+            <section class="sixth">
+                <div class="title chearfix">sixth</div>
+                <div class="content">内容6</div>
+            </section>
+        </div>
+        
     </div>
     <script>
         var $=function(name){
@@ -140,29 +143,45 @@
         var $$=function(name){
             return document.getElementById(name)
         }
+        var $$$=function(name){
+            return document.getElementsByClassName(name)
+        }
         function move(){
-           var fc= $("fans").children,
+           var fc= $("content").children,
                len=fc.length-1
-           for(var i=1;i<=len;i++){
+           for(var i=0;i<=len;i++){
            fc[i].children[0].addEventListener("click",function(){
                
                 var par=this.parentNode
-                if(par.id=="on")
+                if(par.classList.contains("on"))
                 {
-                   for(var i=0,len=getpre(getpre(par)[i]).length;i<len;i++)
+                   console.log(getpre(par).length)
+                   console.log($$$("on").length)
+                   if(getpre(par).length<$$$("on").length){
+                     console.log(getnext(par))
+                     for(var i=0,len=getnext(par).length;i<len;i++){
+                         if(getnext(par)[i].classList.contains("on")){
+                            getnext(par)[i].classList.remove('on');
+                            getnext(par)[i].style.left=parseInt(window.getComputedStyle(getnext(par)[i]).left)+220+"px"
+                         }
+                        
+                    }
+                   }else{
+                    for(var i=0,len=getpre(getpre(par)[i]).length;i<len;i++)
                    {
                     getpre(par)[i].style.left=parseInt(window.getComputedStyle(getpre(par)[i]).left)+220+"px"
-                    getpre(par)[i].setAttribute("id","")
+                    getpre(par)[i].classList.remove('on') 
+                   }
                    }
                 }
                 else
                 {
                 for(var i=0,len=getpre(par).length;i<len;i++)
                 {
-                 if(getpre(par)[i].id!="on")
+                 if(!getpre(par)[i].classList.contains("on"))
                  {
-                    getpre(par)[i].setAttribute("id","on") 
-                    console.log( parseInt(window.getComputedStyle(getpre(par)[i]).left))
+                    getpre(par)[i].classList.add('on') 
+                    // console.log( parseInt(window.getComputedStyle(getpre(par)[i]).left))
                     getpre(par)[i].style.left=parseInt(window.getComputedStyle(getpre(par)[i]).left)-220+"px"
                  }
                 }
@@ -172,10 +191,13 @@
             }
         }
         function getpre(name){
-            var arr=[],
-            pre=name.previousSibling;
+            var arr=[];
+            if(name.previousSibling){
+                pre=name.previousSibling;
+            }
+            
             arr.push(name)
-            for(var i=0,len=name.parentNode.children.length;i<len;i++){
+            for(var i=0,len=name.parentNode.childNodes.length;i<len;i++){
                 if(pre){
                     if(pre.nodeName!=="#text")
                     {arr.push(pre);}
@@ -185,14 +207,16 @@
             return arr
         }
         function getnext(name){
-            var arr=[],
+            var arr=[];
+            if(name.nextSibling){
             next=name.nextSibling;
+            }
             arr.push(name)
-            for(var i=0,len=name.parentNode.children.length;i<len;i++){
+            for(var i=0,len=name.parentNode.childNodes.length;i<len;i++){
                 if(next){
                     if(next.nodeName!=="#text")
                     {arr.push(next);}
-                    next=next.previousSibling;
+                    next=next.nextSibling;
                 }
             }
             return arr
