@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>一次一屏滑屏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        
+        [class*="bl"]{
+           height: 100%;
+           width: 100%;
+           position: absolute;
+        }
+        .bl1{
+           background: rgb(109, 84, 84)
+        }
+        .bl2{
+            background: rgb(47, 109, 145)
+        }
+        .bl3{
+            background: rgb(177, 206, 214)
+        }
+        .bl4{
+            background: #8f7bbe
+        }
+        .bl5{
+            background: rgb(139, 136, 101)
+        }
+        /* #scroll{
+            overflow: hidden;
+        } */
+        html { overflow-x: hidden; overflow-y: hidden; }
+        .aside{
+            position: fixed;
+            top:0 ;
+            height: 100px;
+            min-width: 1200px;
+            width: 100%;
+            background: #989e92;
+            font-size:0;
+            color: #ffffff; 
+            z-index: 9999;
+            border: #666666 1px solid;
+            overflow:hidden;
+        }
+        .aside section{
+            position: fixed;
+            display:inline-block;
+            min-width: 100px;
+            width: 16.6%;
+            text-align: center;
+            border: #666666 1px solid;
+            line-height: 100px;
+            font-size:20px;
+        }
+        .aside section:nth-child(1){
+              left: 0;
+        }
+        .aside section:nth-child(2){
+              left: 16.66%;
+        }
+        .aside section:nth-child(3){
+              left: 33.32%;
+        }
+        .aside section:nth-child(4){
+              left: 49.98%;
+        }
+        .aside section:nth-child(5){
+              left: 66.64%;
+        }
+        .aside section:nth-child(6){
+              left: 83.3%;
+        }
+        .aside section:hover{
+            background: #cfc7c7;
+            cursor: pointer;
+        }
+        .active{
+            background: #bbbaaa;
+        }
+        @media screen and (max-width:480px)
+        {
+            html{
+                font-size: calc(100vw / 750 * 100);
+            }
+            .aside {
+                height: 1rem;
+            }
+            .aside section{
+                min-width:.1rem;
+                line-height: 1rem;
+                font-size:.2rem;  
+            }
+        }
+
+    </style>
+</head>
+<body>
+  <div id="scroll">
+    <div class="bl1"></div>
+    <div class="bl2"></div>
+    <div class="bl3"></div>
+    <div class="bl4"></div>
+    <div class="bl5"></div>
+    <div class="bl6"></div>
+ </div>
+ <div class="aside">
+    <section>第一部分</section>
+    <section>第二部分</section>
+    <section>第三部分</section>
+    <section>第四部分</section>
+    <section>第五部分</section>
+    <section>第六部分</section>
+ </div>
+ <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function clscroll(){
+     var hmove=window.innerWidth,
+        scr=document.getElementById("scroll"),
+        blc=document.getElementById("scroll").children,
+        asc=document.getElementsByClassName("aside")[0].children,
+        num=0,
+        iTime;
+        scr.style.height=window.innerHeight+"px"
+        for(var i=0;i<blc.length;i++){
+            // blc[i].style.width=hmove+"px"
+            blc[i].style.left=window.innerWidth*i+"px"
+        }
+        if(num==0){
+            asc[0].classList.add("active")
+        }
+       
+        document.body.addEventListener("mousewheel",function(event){
+
+            var delta=event.wheelDelta/120;
+            clearTimeout(iTime)
+            iTime=setTimeout(function(){
+            if(delta<0){
+                if(num<=4&&num>=0){
+                    num=num+1;
+                }
+                scr.style.WebkitTransform="translate(-"+num*hmove+"px,0)";
+                scr.style.transition="transform .5s";
+                asc[num].classList.add("active")
+                for(var b=0,i=getSlibing(asc[num]).length;b<i;b++){
+                    getSlibing(asc[num])[b].classList.remove("active")
+                }
+            }else if(delta>0){
+                    if(num<=5&&num>0){
+                        num=num-1;
+                    }
+                    scr.style.WebkitTransform="translate(-"+num*hmove+"px,0)";
+                    scr.style.transition="transform .5s";
+                    asc[num].classList.add("active")
+                    for(var b=0,i=getSlibing(asc[num]).length;b<i;b++){
+                    getSlibing(asc[num])[b].classList.remove("active")
+                }
+            }
+        },100)
+       
+            
+                
+    })
+      document.getElementsByClassName("aside")[0].addEventListener("click",function(event){
+          num=getNum("aside",event.target) 
+          scr.style.WebkitTransform="translate(-"+num*hmove+"px,0)";
+          scr.style.transition="transform .5s";
+          for(var b=0,i=getSlibing(event.target).length;b<i;b++){
+            getSlibing(event.target)[b].classList.remove("active")
+          }
+         
+          if(event.target.length!==6){
+            event.target.classList.add("active")
+          }
+          document.getElementsByClassName("aside")[0].classList.remove("active")
+          getSlibing(event.target)
+      })
+    // $(".aside").click(function(){
+    //     console.log(this)
+    //     scr.style.WebkitTransform="translate(0,-"+num*hmove+"px)";
+    //     scr.style.transition="transform .5s";
+        
+    // })
+        window.onresize=function(){
+        
+        if(window.innerWidth!==hmove)
+        {
+            hmove=window.innerWidth
+            scr.style.WebkitTransform="translate(-"+num*hmove+"px,0)";
+            var blc=document.getElementById("scroll").children
+            for(var i=0;i<blc.length;i++){
+            // blc[i].style.width=hmove+"px"
+            blc[i].style.left=hmove*i+"px"
+        }
+        document.getElementById("scroll").style.height=window.innerHeight+"px";
+            // clearInterval(set)
+        }
+        }
+    }
+    
+     function getNum(par,child){
+       var Arr= document.getElementsByClassName(par)[0].children;
+       for(var i=0;i<Arr.length;i++){
+           if(Arr[i]===child){
+               return i
+           }
+       }
+     }
+     function getSlibing(name){
+          var sArr=[],
+              self=name,
+              pre= self.previousSibling,
+              next=self.nextSibling;
+          for(var i=0,slen=self.parentNode.childNodes.length;i<slen;i++)
+          {
+
+            if(pre){
+                if(pre.nodeName!=="#text")
+                   {sArr.push(pre);}
+                pre=pre.previousSibling;
+            }
+           
+            if(!pre&&next){
+                if(next.nodeName!=="#text")
+                   {sArr.push(next);}
+                next=next.nextSibling;
+            }
+
+          }
+          return sArr;
+     }
+     clscroll()
+    
+    
+    
+</script>
+</body>
+</html>
