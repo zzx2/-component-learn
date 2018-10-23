@@ -130,6 +130,7 @@
        
         document.body.addEventListener("mousewheel",function(event){
 
+            event.preventDefault();
             var delta=event.wheelDelta/120;
             clearTimeout(iTime)
             iTime=setTimeout(function(){
@@ -155,6 +156,7 @@
                 }
             }
         },100)
+    
        
             
                 
