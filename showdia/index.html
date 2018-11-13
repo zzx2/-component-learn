@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .contain{
+            width: 930px;
+            margin: auto;
+        }
+        ul{
+            
+            height: 300px;
+            margin-right:-60px;
+            overflow: hidden; 
+        }
+        ul li{
+            float: left;
+            margin-right:30px; 
+        }
+        ul li:nth-child(1){
+            background: #afffff;
+            width: 300px;
+            height: 50px;
+            margin-bottom:-500px;
+            padding-bottom:500px; 
+
+        }
+        ul li:nth-child(2){
+            background: #e5ecec;
+            width: 300px;
+            height:100px;
+            margin-bottom:-500px;
+            padding-bottom:500px; 
+        }
+        ul li:nth-child(3){
+            background: #3c4747;
+            width: 300px;
+            height: 50px;
+            margin-bottom:-500px;
+            padding-bottom:500px; 
+        }
+        .img-center{
+            background: #afffff;
+            width: 600px;
+            height: 600px;
+            text-align:center;
+        }
+        img{
+            vertical-align: middle;
+        }
+        .img-center::after{
+            display:inline-block;
+            content: "center";
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+            overflow: hidden;
+
+            
+        }
+        .dialog{
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            width: 500px;
+            height: 500px;
+            background: #3c4747;
+            z-index: 999;
+            display: none;
+        }
+        .close{
+            font-size: 30px;
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            font-style: normal;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+  <div class="contain">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+  </div>  
+  <div class="img-center">
+      <img src="http://image.zhangxinxu.com/image/study/s/s256/mm1.jpg" alt="">
+  </div>
+  <div class="dialog">
+      <i class="close">x</i>
+  </div>
+  <button class="btn-dia">弹窗</button>
+ <script src="showdia.js"></script>
+ <script>
+     showdia({
+         dia_name:"dialog",
+         dia_close_name:"close",
+         dia_button:"btn-dia"
+     })
+ </script>
+</body>
+</html>
